@@ -1,18 +1,24 @@
-import type { ComponentType } from 'react'
-import type { Screen } from '../domain'
 import { localStorageStatePort } from '../infrastructure/local-storage-state-port'
-import { HomePage } from './pages/HomePage'
+import { ConfiguracionPage } from './pages/ConfiguracionPage'
+import { JuegoEnCursoPage } from './pages/JuegoEnCursoPage'
+import { ResultadosPage } from './pages/ResultadosPage'
+import { SorteoPage } from './pages/SorteoPage'
 import { AppStateProvider } from './state/AppStateContext'
 import { useAppState } from './state/use-app-state'
 
-const pagesByScreen: Record<Screen, ComponentType> = {
-  home: HomePage,
-}
-
 function ActivePage() {
   const { state } = useAppState()
-  const Page = pagesByScreen[state.screen]
-  return <Page />
+
+  switch (state.partida.etapaActual.tipo) {
+    case 'configuracion':
+      return <ConfiguracionPage />
+    case 'sorteo':
+      return <SorteoPage />
+    case 'juego':
+      return <JuegoEnCursoPage />
+    case 'resultados':
+      return <ResultadosPage />
+  }
 }
 
 export function App() {

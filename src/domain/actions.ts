@@ -1,3 +1,10 @@
-import type { Screen } from './state'
+import type { CasaId, Etapa, JuegoId } from './state'
 
-export type AppAction = { type: 'screen/navigate'; screen: Screen }
+export type AppAction =
+  | { type: 'partida/configurar-total'; total: number }
+  | { type: 'partida/agregar-invitado'; nombre: string }
+  | { type: 'partida/editar-invitado'; id: string; nombre?: string; casa?: CasaId }
+  | { type: 'partida/eliminar-invitado'; id: string }
+  | { type: 'partida/avanzar-etapa' }
+  | { type: 'partida/ir-a-etapa'; etapa: Etapa }
+  | { type: 'partida/cargar-puntaje'; juego: JuegoId; casa: CasaId; puntos: number }
