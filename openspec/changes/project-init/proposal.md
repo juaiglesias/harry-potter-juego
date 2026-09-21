@@ -25,5 +25,5 @@ Fuera de esta propuesta: la lógica de sorteo de casas, el roster de invitados, 
 ## Impact
 
 - Código nuevo: todo el proyecto (`package.json`, configuración de Vite, estructura de carpetas, componentes base, proveedor de estado, capa de persistencia).
-- Dependencias nuevas: React, Vite, y las fuentes self-hosteadas de `DESIGN.md`.
+- Dependencias nuevas: React, Vite, `vite-plugin-singlefile` (necesario para que el build abra vía `file://` sin bloqueos de CORS, ver `design.md`), y las fuentes self-hosteadas de `DESIGN.md`.
 - No afecta `DESIGN.md` ni `ARCHITECTURE.md`, los implementa.

@@ -1,0 +1,34 @@
+/* Tipografías self-hosteadas: sin dependencia de Google Fonts ni de ningún
+   CDN externo, para que la app funcione sin conexión (ver ARCHITECTURE.md). */
+
+@font-face {
+  font-family: 'HarryP';
+  src:
+    url('../../assets/fonts/harryp.woff2') format('woff2'),
+    url('../../assets/fonts/harryp.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IM Fell English';
+  src: url('../../assets/fonts/im-fell-english-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../../assets/fonts/eb-garamond-regular.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../../assets/fonts/eb-garamond-italic.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: italic;
+  font-display: swap;
+}

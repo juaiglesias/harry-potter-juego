@@ -28,9 +28,10 @@ src/
     components/          # componentes reutilizables (Botón, Panel, Divisor, etc. de DESIGN.md)
     state/               # Context + Provider de React que exponen el reducer de domain/ al árbol de UI
     styles/              # tokens de diseño (variables CSS) y declaración de fuentes
-assets/
-  fonts/                 # las 3 familias tipográficas, self-hosteadas
+  assets/
+    fonts/               # las 3 familias tipográficas, self-hosteadas
 ```
+`assets/fonts/` vive dentro de `src/` (no como carpeta hermana) porque así Vite las procesa como parte del grafo de módulos: se referencian con imports/`url()` relativos y quedan versionadas con el resto del build, en vez de depender de rutas absolutas servidas por un directorio público aparte.
 `domain/` no importa nada de React ni de `infrastructure/`: ahí vive tanto el modelo de negocio como la orquestación de casos de uso (el reducer y sus acciones), sin conocer cómo se muestra ni cómo se guarda. `domain/` define los puertos (ej. una interfaz de guardado/restauración de estado); `infrastructure/` los implementa, nunca al revés (inversión de dependencias). `presentation/` depende de `domain/` para leer estado y despachar acciones, pero `domain/` no sabe que React existe. Esto deja preparado el terreno para features futuras: van a agregar entidades y acciones en `domain/` y páginas en `presentation/pages/` sin tocar la base.
 
 **Estado global: reducer en `domain/`, Context en `presentation/`**
@@ -53,7 +54,7 @@ Vite con el template estándar de React. El build de producción no depende de v
 
 ## Risks / Trade-offs
 
-- [Riesgo] Abrir el build directamente con `file://` puede toparse con restricciones del navegador sobre módulos ES según la versión de Safari/Chrome. → Mitigación: validar temprano que el build de producción de Vite carga correctamente con `file://` en el dispositivo real; si falla, servirlo desde una notebook en la misma red local, opción ya contemplada en `ARCHITECTURE.md`.
+- [Riesgo] Abrir el build directamente con `file://` puede toparse con restricciones del navegador sobre módulos ES según la versión de Safari/Chrome. → **Confirmado y resuelto**: Vite marca los `<script type="module">` y `<link>` del build con `crossorigin`, y Chromium bloquea esa carga por CORS bajo `file://` (origen `null`). Se resolvió con `vite-plugin-singlefile`, que empaqueta JS, CSS y fuentes en un único `index.html` sin archivos separados que disparen esas etiquetas. Verificado sin errores en Chromium y WebKit headless, sin ningún pedido de red externo.
 - [Riesgo] Self-hostear "IM Fell English" y "EB Garamond" sin revisar la licencia podría no estar permitido. → Mitigación: confirmar que ambas están bajo licencia SIL Open Font License (permite redistribución) antes de sumar los archivos al repo.
 - [Riesgo] Context + `useReducer` puede quedarse corto si el estado global crece mucho con las features futuras. → Mitigación: mientras el estado siga modelado por dominio (no por pantalla), alcanza; si crece demasiado, se evalúa dividir en varios contextos en un cambio posterior, no ahora.
 

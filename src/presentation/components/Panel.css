@@ -1,0 +1,6 @@
+.panel {
+  background: rgba(241, 227, 198, .04);
+  border-top: 1px solid var(--borde);
+  border-radius: var(--radio-panel);
+  padding: var(--espacio-5);
+}

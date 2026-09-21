@@ -1,0 +1,15 @@
+.divider {
+  position: relative;
+  border-top: 1px solid var(--borde);
+  margin: var(--espacio-6) 0;
+}
+
+.divider__mark {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--vela);
+  transform: translate(-50%, -50%) rotate(45deg);
+}

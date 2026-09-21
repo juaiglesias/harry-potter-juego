@@ -1,0 +1,66 @@
+/* Tokens de diseño portados de DESIGN.md. Toda la UI consume estas variables,
+   nunca colores, tamaños o tipografías hardcodeadas. */
+
+:root {
+  /* Color */
+  --noche: #0D1526;
+  --roble: #221A13;
+  --piedra: #3A342C;
+  --vela: #E8B65A;
+  --cera: #F1E3C6;
+  --vitral: #4A2230;
+
+  --texto: var(--cera);
+  --texto-suave: rgba(241, 227, 198, .66);
+  --texto-tenue: rgba(241, 227, 198, .42);
+  --borde: rgba(241, 227, 198, .14);
+  --borde-fuerte: rgba(232, 182, 90, .38);
+  --halo: 0 0 32px rgba(232, 182, 90, .22);
+
+  --salon: radial-gradient(120% 70% at 50% 0%, #16223A 0%, #0D1526 38%, #221A13 100%);
+
+  --gryf: #740001;
+  --gryf-t: #D3A625;
+  --slyt: #1A472A;
+  --slyt-t: #C2C2C2;
+  --rave: #0E1A40;
+  --rave-t: #C9A961;
+  --huff: #ECB939;
+  --huff-t: #372E29;
+
+  /* Tipografía */
+  --fuente-titulo: 'HarryP', 'IM Fell English', Georgia, serif;
+  --fuente-subtitulo: 'IM Fell English', Georgia, serif;
+  --fuente-cuerpo: 'EB Garamond', Georgia, serif;
+
+  --tam-h1: 76px;
+  --interlineado-h1: 1.04;
+  --tam-h1-mobile: 44px;
+  --tam-h2: 32px;
+  --interlineado-h2: 1.2;
+  --tam-h3: 24px;
+  --interlineado-h3: 1.3;
+  --tam-cuerpo: 18px;
+  --interlineado-cuerpo: 1.62;
+  --tam-bajada: 21px;
+  --interlineado-bajada: 1.5;
+  --tam-secundario: 15px;
+  --interlineado-secundario: 1.55;
+  --tam-micro: 13px;
+  --interlineado-micro: 1.4;
+
+  /* Espaciado */
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 12px;
+  --espacio-4: 16px;
+  --espacio-5: 24px;
+  --espacio-6: 40px;
+  --espacio-7: 64px;
+  --espacio-8: 104px;
+
+  --radio-boton: 3px;
+  --radio-panel: 2px;
+  --ancho-maximo: 1160px;
+  --breakpoint-mobile: 760px;
+}
