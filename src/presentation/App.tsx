@@ -2,6 +2,7 @@ import { localStorageStatePort } from '../infrastructure/local-storage-state-por
 import { ConfiguracionPage } from './pages/ConfiguracionPage'
 import { JuegoEnCursoPage } from './pages/JuegoEnCursoPage'
 import { PreguntasPage } from './pages/PreguntasPage'
+import { QuidditchPage } from './pages/QuidditchPage'
 import { ResultadosPage } from './pages/ResultadosPage'
 import { SorteoPage } from './pages/SorteoPage'
 import { AppStateProvider } from './state/AppStateContext'
@@ -18,7 +19,14 @@ function ActivePage() {
     case 'sorteo':
       return <SorteoPage />
     case 'juego':
-      return etapaActual.juego === 'preguntas-y-respuestas' ? <PreguntasPage /> : <JuegoEnCursoPage />
+      switch (etapaActual.juego) {
+        case 'preguntas-y-respuestas':
+          return <PreguntasPage />
+        case 'quidditch':
+          return <QuidditchPage />
+        default:
+          return <JuegoEnCursoPage />
+      }
     case 'resultados':
       return <ResultadosPage />
   }

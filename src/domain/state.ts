@@ -1,3 +1,5 @@
+import type { AroId } from './puntos'
+
 export type CasaId = 'gryffindor' | 'slytherin' | 'ravenclaw' | 'hufflepuff'
 
 export const CASAS: CasaId[] = ['gryffindor', 'slytherin', 'ravenclaw', 'hufflepuff']
@@ -31,6 +33,10 @@ export interface ProgresoPreguntas {
   aciertos: Record<string, CasaId[]>
 }
 
+export interface ProgresoQuidditch {
+  embocadas: Record<CasaId, Record<AroId, number>>
+}
+
 export interface Partida {
   etapaActual: Etapa
   totalParticipantes: number
@@ -38,6 +44,7 @@ export interface Partida {
   invitados: Invitado[]
   puntajesPorJuego: Record<JuegoId, Record<CasaId, number>>
   preguntas: ProgresoPreguntas
+  quidditch: ProgresoQuidditch
 }
 
 export interface AppState {
@@ -46,6 +53,14 @@ export interface AppState {
 
 function registroCasasEnCero(): Record<CasaId, number> {
   return { gryffindor: 0, slytherin: 0, ravenclaw: 0, hufflepuff: 0 }
+}
+
+function arosEnCero(): Record<AroId, number> {
+  return { chico: 0, mediano: 0, grande: 0 }
+}
+
+function embocadasIniciales(): Record<CasaId, Record<AroId, number>> {
+  return { gryffindor: arosEnCero(), slytherin: arosEnCero(), ravenclaw: arosEnCero(), hufflepuff: arosEnCero() }
 }
 
 function puntajesIniciales(): Record<JuegoId, Record<CasaId, number>> {
@@ -65,5 +80,6 @@ export const initialState: AppState = {
     invitados: [],
     puntajesPorJuego: puntajesIniciales(),
     preguntas: { preguntaActual: 0, aciertos: {} },
+    quidditch: { embocadas: embocadasIniciales() },
   },
 }

@@ -1,5 +1,5 @@
 import type { AppAction } from './actions'
-import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajePreguntasPorCasa, sortearCasa } from './partida'
+import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, sortearCasa } from './partida'
 import { PREGUNTAS_JUEGO_1 } from './preguntas'
 import type { AppState } from './state'
 
@@ -116,6 +116,24 @@ export function appReducer(state: AppState, action: AppAction): AppState {
             ...partida.puntajesPorJuego,
             'preguntas-y-respuestas': puntajePreguntasPorCasa(aciertos),
           },
+        },
+      }
+    }
+
+    case 'quidditch/registrar-embocada': {
+      const delCasa = partida.quidditch.embocadas[action.casa]
+      const embocadas = {
+        ...partida.quidditch.embocadas,
+        [action.casa]: { ...delCasa, [action.aro]: Math.max(delCasa[action.aro] + action.delta, 0) },
+      }
+      // Igual que en el Juego 1: el puntaje se reescribe completo desde las
+      // embocadas para que nunca se desfase.
+      return {
+        ...state,
+        partida: {
+          ...partida,
+          quidditch: { embocadas },
+          puntajesPorJuego: { ...partida.puntajesPorJuego, quidditch: puntajeQuidditchPorCasa(embocadas) },
         },
       }
     }

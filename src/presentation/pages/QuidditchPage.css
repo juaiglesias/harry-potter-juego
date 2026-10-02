@@ -1,0 +1,86 @@
+.quidditch {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 var(--espacio-3);
+}
+
+.quidditch th {
+  font-family: var(--fuente-subtitulo);
+  font-weight: normal;
+  text-align: left;
+}
+
+.quidditch thead th {
+  color: var(--texto-suave);
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-secundario);
+  font-variant-numeric: lining-nums;
+}
+
+.quidditch__casa {
+  border-left: 4px solid;
+  padding-left: var(--espacio-3);
+  font-size: var(--tam-bajada);
+}
+
+.quidditch__celda {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.quidditch__embocada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 96px;
+  padding: var(--espacio-2) var(--espacio-4);
+  border: none;
+  border-radius: var(--radio-boton);
+  background: var(--vela);
+  color: var(--roble);
+  box-shadow: var(--halo);
+  cursor: pointer;
+  font-family: var(--fuente-cuerpo);
+}
+
+.quidditch__embocada:active {
+  transform: scale(.97);
+}
+
+.quidditch__puntos {
+  font-size: var(--tam-bajada);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+}
+
+.quidditch__cantidad {
+  font-size: var(--tam-secundario);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.quidditch__restar {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-boton);
+  background: transparent;
+  color: var(--texto);
+  font-size: var(--tam-cuerpo);
+  cursor: pointer;
+}
+
+.quidditch__restar:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.quidditch__subtotal {
+  text-align: right;
+}
+
+td.quidditch__subtotal {
+  font-size: var(--tam-h3);
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+}

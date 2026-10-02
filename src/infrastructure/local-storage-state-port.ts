@@ -10,11 +10,13 @@ export const localStorageStatePort: StatePort = {
     try {
       const parsed: unknown = JSON.parse(raw)
       // Si el estado guardado es de una forma anterior de AppState (por
-      // ejemplo, de antes de existir `partida` o `partida.preguntas`), se
+      // ejemplo, de antes de existir `partida` o de los datos de un juego), se
       // descarta en vez de romper: la app arranca con el estado inicial.
       if (!parsed || typeof parsed !== 'object' || !('partida' in parsed)) return undefined
       const { partida } = parsed
-      if (!partida || typeof partida !== 'object' || !('preguntas' in partida)) return undefined
+      if (!partida || typeof partida !== 'object' || !('preguntas' in partida) || !('quidditch' in partida)) {
+        return undefined
+      }
       return parsed as AppState
     } catch {
       return undefined

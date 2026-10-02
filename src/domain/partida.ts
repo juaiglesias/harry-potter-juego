@@ -1,4 +1,5 @@
-import { PUNTOS_POR_ACIERTO } from './puntos'
+import { AROS, PUNTOS_POR_ACIERTO, PUNTOS_POR_ARO } from './puntos'
+import type { AroId } from './puntos'
 import { CASAS, ETAPAS_ORDEN, JUEGOS } from './state'
 import type { CasaId, Etapa, Invitado, JuegoId } from './state'
 
@@ -94,6 +95,19 @@ export function puntajePreguntasPorCasa(aciertos: Record<string, CasaId[]>): Rec
       [casa]:
         casasAcertadas.filter((acertada) => acertada === casa).length *
         PUNTOS_POR_ACIERTO['preguntas-y-respuestas'],
+    }),
+    {} as Record<CasaId, number>,
+  )
+}
+
+/** Puntaje del Juego 2 por casa: embocadas de cada aro por sus puntos. */
+export function puntajeQuidditchPorCasa(
+  embocadas: Record<CasaId, Record<AroId, number>>,
+): Record<CasaId, number> {
+  return CASAS.reduce<Record<CasaId, number>>(
+    (acc, casa) => ({
+      ...acc,
+      [casa]: AROS.reduce((suma, aro) => suma + embocadas[casa][aro] * PUNTOS_POR_ARO[aro], 0),
     }),
     {} as Record<CasaId, number>,
   )

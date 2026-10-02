@@ -1,3 +1,4 @@
+import type { AroId } from './puntos'
 import type { CasaId, Etapa, JuegoId } from './state'
 
 export type AppAction =
@@ -10,3 +11,4 @@ export type AppAction =
   | { type: 'partida/cargar-puntaje'; juego: JuegoId; casa: CasaId; puntos: number }
   | { type: 'preguntas/ir-a-pregunta'; indice: number }
   | { type: 'preguntas/alternar-acierto'; preguntaId: string; casa: CasaId }
+  | { type: 'quidditch/registrar-embocada'; casa: CasaId; aro: AroId; delta: 1 | -1 }
