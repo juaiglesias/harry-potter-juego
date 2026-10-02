@@ -1,3 +1,4 @@
+import { PUNTOS_POR_ACIERTO } from './puntos'
 import { CASAS, ETAPAS_ORDEN, JUEGOS } from './state'
 import type { CasaId, Etapa, Invitado, JuegoId } from './state'
 
@@ -82,6 +83,20 @@ export function sortearCasa(
   const elegibles = disponibles.length > 0 ? disponibles : CASAS
 
   return elegibles[Math.floor(Math.random() * elegibles.length)]
+}
+
+/** Puntaje del Juego 1 por casa: preguntas acertadas por puntos por acierto. */
+export function puntajePreguntasPorCasa(aciertos: Record<string, CasaId[]>): Record<CasaId, number> {
+  const casasAcertadas = Object.values(aciertos).flat()
+  return CASAS.reduce<Record<CasaId, number>>(
+    (acc, casa) => ({
+      ...acc,
+      [casa]:
+        casasAcertadas.filter((acertada) => acertada === casa).length *
+        PUNTOS_POR_ACIERTO['preguntas-y-respuestas'],
+    }),
+    {} as Record<CasaId, number>,
+  )
 }
 
 export function puntajeTotalPorCasa(

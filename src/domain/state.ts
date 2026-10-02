@@ -25,12 +25,19 @@ export interface Invitado {
   casa: CasaId
 }
 
+export interface ProgresoPreguntas {
+  preguntaActual: number
+  /** Por id de pregunta, las casas que respondieron bien. Sin entrada = ninguna. */
+  aciertos: Record<string, CasaId[]>
+}
+
 export interface Partida {
   etapaActual: Etapa
   totalParticipantes: number
   cuposPorCasa: Record<CasaId, number>
   invitados: Invitado[]
   puntajesPorJuego: Record<JuegoId, Record<CasaId, number>>
+  preguntas: ProgresoPreguntas
 }
 
 export interface AppState {
@@ -57,5 +64,6 @@ export const initialState: AppState = {
     cuposPorCasa: registroCasasEnCero(),
     invitados: [],
     puntajesPorJuego: puntajesIniciales(),
+    preguntas: { preguntaActual: 0, aciertos: {} },
   },
 }

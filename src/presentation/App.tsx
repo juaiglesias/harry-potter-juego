@@ -1,6 +1,7 @@
 import { localStorageStatePort } from '../infrastructure/local-storage-state-port'
 import { ConfiguracionPage } from './pages/ConfiguracionPage'
 import { JuegoEnCursoPage } from './pages/JuegoEnCursoPage'
+import { PreguntasPage } from './pages/PreguntasPage'
 import { ResultadosPage } from './pages/ResultadosPage'
 import { SorteoPage } from './pages/SorteoPage'
 import { AppStateProvider } from './state/AppStateContext'
@@ -9,13 +10,15 @@ import { useAppState } from './state/use-app-state'
 function ActivePage() {
   const { state } = useAppState()
 
-  switch (state.partida.etapaActual.tipo) {
+  const { etapaActual } = state.partida
+
+  switch (etapaActual.tipo) {
     case 'configuracion':
       return <ConfiguracionPage />
     case 'sorteo':
       return <SorteoPage />
     case 'juego':
-      return <JuegoEnCursoPage />
+      return etapaActual.juego === 'preguntas-y-respuestas' ? <PreguntasPage /> : <JuegoEnCursoPage />
     case 'resultados':
       return <ResultadosPage />
   }

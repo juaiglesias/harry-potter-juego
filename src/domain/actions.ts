@@ -8,3 +8,5 @@ export type AppAction =
   | { type: 'partida/avanzar-etapa' }
   | { type: 'partida/ir-a-etapa'; etapa: Etapa }
   | { type: 'partida/cargar-puntaje'; juego: JuegoId; casa: CasaId; puntos: number }
+  | { type: 'preguntas/ir-a-pregunta'; indice: number }
+  | { type: 'preguntas/alternar-acierto'; preguntaId: string; casa: CasaId }
