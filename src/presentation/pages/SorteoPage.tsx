@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { CASAS, NOMBRE_CASA } from '../../domain'
 import type { CasaId } from '../../domain'
@@ -6,6 +6,7 @@ import { Button } from '../components/Button'
 import { Divider } from '../components/Divider'
 import { MarcadorCasas } from '../components/MarcadorCasas'
 import { Panel } from '../components/Panel'
+import { SorteoAnimacion } from '../components/SorteoAnimacion'
 import { Stepper } from '../components/Stepper'
 import { useAppState } from '../state/use-app-state'
 
@@ -13,14 +14,23 @@ export function SorteoPage() {
   const { state, dispatch } = useAppState()
   const [nombre, setNombre] = useState('')
   const inputNombreRef = useRef<HTMLInputElement>(null)
+  // La casa se sortea en el reducer: se guarda la posición que ocupa el nuevo
+  // invitado y su casa se lee del estado ya actualizado.
+  const [sorteoEnCurso, setSorteoEnCurso] = useState<{ indice: number } | null>(null)
+  const casaSorteada = sorteoEnCurso ? state.partida.invitados[sorteoEnCurso.indice]?.casa : undefined
 
   function sortearInvitado(event: FormEvent) {
     event.preventDefault()
     if (!nombre.trim()) return
+    setSorteoEnCurso({ indice: state.partida.invitados.length })
     dispatch({ type: 'partida/agregar-invitado', nombre: nombre.trim() })
     setNombre('')
-    inputNombreRef.current?.focus()
   }
+
+  const finalizarSorteo = useCallback(() => {
+    setSorteoEnCurso(null)
+    inputNombreRef.current?.focus()
+  }, [])
 
   return (
     <div className="pantalla">
@@ -84,6 +94,7 @@ export function SorteoPage() {
         )}
       </Panel>
       <Button onClick={() => dispatch({ type: 'partida/avanzar-etapa' })}>Empezar juegos</Button>
+      {casaSorteada && <SorteoAnimacion casa={casaSorteada} onFinalizar={finalizarSorteo} />}
     </div>
   )
 }
