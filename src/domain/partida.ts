@@ -1,4 +1,4 @@
-import { AROS, PUNTOS_POR_ACIERTO, PUNTOS_POR_ARO, PUNTOS_TABU } from './puntos'
+import { AROS, PUNTOS_POR_ACIERTO, PUNTOS_POR_ARO, PUNTOS_POR_PUESTO_HUEVO, PUNTOS_TABU } from './puntos'
 import type { AroId } from './puntos'
 import { CASAS, ETAPAS_ORDEN, JUEGOS } from './state'
 import type { CasaId, Etapa, Invitado, JuegoId } from './state'
@@ -123,6 +123,14 @@ export function puntajeTabuPorCasa(turnos: Record<CasaId, TurnoTabu>): Record<Ca
     }),
     {} as Record<CasaId, number>,
   )
+}
+
+/** Puntaje del Juego 4 por casa: puntos de su puesto de llegada, 0 si todavía no llegó. */
+export function puntajeHuevoPorCasa(orden: CasaId[]): Record<CasaId, number> {
+  return CASAS.reduce<Record<CasaId, number>>((acc, casa) => {
+    const puesto = orden.indexOf(casa)
+    return { ...acc, [casa]: puesto === -1 ? 0 : PUNTOS_POR_PUESTO_HUEVO[puesto] }
+  }, {} as Record<CasaId, number>)
 }
 
 export function puntajeTotalPorCasa(

@@ -25,3 +25,6 @@ export const PUNTOS_TABU = {
   acierto: 10,
   error: -10,
 }
+
+/** Puntos del Juego 4 (Huevo de Dragón) por puesto de llegada (0 = primero). */
+export const PUNTOS_POR_PUESTO_HUEVO = [50, 30, 10, 0]

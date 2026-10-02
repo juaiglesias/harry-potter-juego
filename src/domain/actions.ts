@@ -1,5 +1,5 @@
 import type { AroId } from './puntos'
-import type { CasaId, Etapa, JuegoId } from './state'
+import type { CasaId, Etapa } from './state'
 import type { ResultadoTabu } from './tabu'
 
 export type AppAction =
@@ -9,7 +9,6 @@ export type AppAction =
   | { type: 'partida/eliminar-invitado'; id: string }
   | { type: 'partida/avanzar-etapa' }
   | { type: 'partida/ir-a-etapa'; etapa: Etapa }
-  | { type: 'partida/cargar-puntaje'; juego: JuegoId; casa: CasaId; puntos: number }
   | { type: 'preguntas/ir-a-pregunta'; indice: number }
   | { type: 'preguntas/alternar-acierto'; preguntaId: string; casa: CasaId }
   | { type: 'quidditch/registrar-embocada'; casa: CasaId; aro: AroId; delta: 1 | -1 }
@@ -17,3 +16,5 @@ export type AppAction =
   | { type: 'tabu/iniciar-turno'; casa: CasaId; ahora: number }
   | { type: 'tabu/marcar'; casa: CasaId; resultado: ResultadoTabu; ahora: number }
   | { type: 'tabu/deshacer'; casa: CasaId }
+  | { type: 'huevo/anotar'; casa: CasaId }
+  | { type: 'huevo/deshacer' }

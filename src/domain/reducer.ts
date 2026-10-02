@@ -1,9 +1,22 @@
 import type { AppAction } from './actions'
-import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, puntajeTabuPorCasa, sortearCasa } from './partida'
+import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajeHuevoPorCasa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, puntajeTabuPorCasa, sortearCasa } from './partida'
 import { PREGUNTAS_JUEGO_1 } from './preguntas'
 import type { AppState, CasaId } from './state'
 import { DURACION_TURNO_TABU_SEGUNDOS, estadoTurnoTabu } from './tabu'
 import type { TurnoTabu } from './tabu'
+
+/** Reemplaza el orden del Juego 4 y reescribe su puntaje desde ese orden. */
+function conOrdenHuevo(state: AppState, orden: CasaId[]): AppState {
+  const { partida } = state
+  return {
+    ...state,
+    partida: {
+      ...partida,
+      huevo: { orden },
+      puntajesPorJuego: { ...partida.puntajesPorJuego, 'huevo-de-dragon': puntajeHuevoPorCasa(orden) },
+    },
+  }
+}
 
 /** Reemplaza el turno de una casa y reescribe el puntaje del Juego 3 desde los turnos. */
 function conTurnoTabu(state: AppState, casa: CasaId, turno: TurnoTabu): AppState {
@@ -89,22 +102,6 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       }
     }
 
-    case 'partida/cargar-puntaje': {
-      return {
-        ...state,
-        partida: {
-          ...partida,
-          puntajesPorJuego: {
-            ...partida.puntajesPorJuego,
-            [action.juego]: {
-              ...partida.puntajesPorJuego[action.juego],
-              [action.casa]: action.puntos,
-            },
-          },
-        },
-      }
-    }
-
     case 'preguntas/ir-a-pregunta': {
       const indice = Math.min(Math.max(action.indice, 0), PREGUNTAS_JUEGO_1.length - 1)
       return {
@@ -177,6 +174,16 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       const turno = partida.tabu.turnos[action.casa]
       if (turno.resultados.length === 0) return state
       return conTurnoTabu(state, action.casa, { ...turno, resultados: turno.resultados.slice(0, -1) })
+    }
+
+    case 'huevo/anotar': {
+      if (partida.huevo.orden.includes(action.casa)) return state
+      return conOrdenHuevo(state, [...partida.huevo.orden, action.casa])
+    }
+
+    case 'huevo/deshacer': {
+      if (partida.huevo.orden.length === 0) return state
+      return conOrdenHuevo(state, partida.huevo.orden.slice(0, -1))
     }
 
     default:

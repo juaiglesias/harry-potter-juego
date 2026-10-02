@@ -19,7 +19,8 @@ export const localStorageStatePort: StatePort = {
         typeof partida !== 'object' ||
         !('preguntas' in partida) ||
         !('quidditch' in partida) ||
-        !('tabu' in partida)
+        !('tabu' in partida) ||
+        !('huevo' in partida)
       ) {
         return undefined
       }

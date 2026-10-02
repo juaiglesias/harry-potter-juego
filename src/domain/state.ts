@@ -46,6 +46,11 @@ export interface ProgresoTabu {
   casaEnTurno: CasaId | null
 }
 
+export interface ProgresoHuevo {
+  /** Casas en el orden en que encontraron su huevo: la posición es el puesto. */
+  orden: CasaId[]
+}
+
 export interface Partida {
   etapaActual: Etapa
   totalParticipantes: number
@@ -55,6 +60,7 @@ export interface Partida {
   preguntas: ProgresoPreguntas
   quidditch: ProgresoQuidditch
   tabu: ProgresoTabu
+  huevo: ProgresoHuevo
 }
 
 export interface AppState {
@@ -99,5 +105,6 @@ export const initialState: AppState = {
     preguntas: { preguntaActual: 0, aciertos: {} },
     quidditch: { embocadas: embocadasIniciales() },
     tabu: { reparto: repartirTarjetas(CASAS), turnos: turnosTabuIniciales(), casaEnTurno: null },
+    huevo: { orden: [] },
   },
 }
