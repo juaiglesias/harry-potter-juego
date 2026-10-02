@@ -1,4 +1,6 @@
 import type { AroId } from './puntos'
+import { repartirTarjetas } from './tabu'
+import type { TurnoTabu } from './tabu'
 
 export type CasaId = 'gryffindor' | 'slytherin' | 'ravenclaw' | 'hufflepuff'
 
@@ -37,6 +39,13 @@ export interface ProgresoQuidditch {
   embocadas: Record<CasaId, Record<AroId, number>>
 }
 
+export interface ProgresoTabu {
+  /** Ids de tarjeta por casa, en el orden en que se juegan. */
+  reparto: Record<CasaId, string[]>
+  turnos: Record<CasaId, TurnoTabu>
+  casaEnTurno: CasaId | null
+}
+
 export interface Partida {
   etapaActual: Etapa
   totalParticipantes: number
@@ -45,6 +54,7 @@ export interface Partida {
   puntajesPorJuego: Record<JuegoId, Record<CasaId, number>>
   preguntas: ProgresoPreguntas
   quidditch: ProgresoQuidditch
+  tabu: ProgresoTabu
 }
 
 export interface AppState {
@@ -61,6 +71,13 @@ function arosEnCero(): Record<AroId, number> {
 
 function embocadasIniciales(): Record<CasaId, Record<AroId, number>> {
   return { gryffindor: arosEnCero(), slytherin: arosEnCero(), ravenclaw: arosEnCero(), hufflepuff: arosEnCero() }
+}
+
+function turnosTabuIniciales(): Record<CasaId, TurnoTabu> {
+  return CASAS.reduce<Record<CasaId, TurnoTabu>>(
+    (acc, casa) => ({ ...acc, [casa]: { venceEn: null, resultados: [] } }),
+    {} as Record<CasaId, TurnoTabu>,
+  )
 }
 
 function puntajesIniciales(): Record<JuegoId, Record<CasaId, number>> {
@@ -81,5 +98,6 @@ export const initialState: AppState = {
     puntajesPorJuego: puntajesIniciales(),
     preguntas: { preguntaActual: 0, aciertos: {} },
     quidditch: { embocadas: embocadasIniciales() },
+    tabu: { reparto: repartirTarjetas(CASAS), turnos: turnosTabuIniciales(), casaEnTurno: null },
   },
 }

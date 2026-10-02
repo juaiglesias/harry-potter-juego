@@ -1,7 +1,23 @@
 import type { AppAction } from './actions'
-import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, sortearCasa } from './partida'
+import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, puntajeTabuPorCasa, sortearCasa } from './partida'
 import { PREGUNTAS_JUEGO_1 } from './preguntas'
-import type { AppState } from './state'
+import type { AppState, CasaId } from './state'
+import { DURACION_TURNO_TABU_SEGUNDOS, estadoTurnoTabu } from './tabu'
+import type { TurnoTabu } from './tabu'
+
+/** Reemplaza el turno de una casa y reescribe el puntaje del Juego 3 desde los turnos. */
+function conTurnoTabu(state: AppState, casa: CasaId, turno: TurnoTabu): AppState {
+  const { partida } = state
+  const turnos = { ...partida.tabu.turnos, [casa]: turno }
+  return {
+    ...state,
+    partida: {
+      ...partida,
+      tabu: { ...partida.tabu, turnos },
+      puntajesPorJuego: { ...partida.puntajesPorJuego, 'tabu-hp': puntajeTabuPorCasa(turnos) },
+    },
+  }
+}
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   const { partida } = state
@@ -136,6 +152,31 @@ export function appReducer(state: AppState, action: AppAction): AppState {
           puntajesPorJuego: { ...partida.puntajesPorJuego, quidditch: puntajeQuidditchPorCasa(embocadas) },
         },
       }
+    }
+
+    case 'tabu/elegir-casa': {
+      return { ...state, partida: { ...partida, tabu: { ...partida.tabu, casaEnTurno: action.casa } } }
+    }
+
+    case 'tabu/iniciar-turno': {
+      const turno = partida.tabu.turnos[action.casa]
+      if (turno.venceEn !== null) return state
+      return conTurnoTabu(state, action.casa, {
+        ...turno,
+        venceEn: action.ahora + DURACION_TURNO_TABU_SEGUNDOS * 1000,
+      })
+    }
+
+    case 'tabu/marcar': {
+      const turno = partida.tabu.turnos[action.casa]
+      if (estadoTurnoTabu(turno, action.ahora) !== 'en-curso') return state
+      return conTurnoTabu(state, action.casa, { ...turno, resultados: [...turno.resultados, action.resultado] })
+    }
+
+    case 'tabu/deshacer': {
+      const turno = partida.tabu.turnos[action.casa]
+      if (turno.resultados.length === 0) return state
+      return conTurnoTabu(state, action.casa, { ...turno, resultados: turno.resultados.slice(0, -1) })
     }
 
     default:

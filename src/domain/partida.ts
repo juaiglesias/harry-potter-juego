@@ -1,7 +1,8 @@
-import { AROS, PUNTOS_POR_ACIERTO, PUNTOS_POR_ARO } from './puntos'
+import { AROS, PUNTOS_POR_ACIERTO, PUNTOS_POR_ARO, PUNTOS_TABU } from './puntos'
 import type { AroId } from './puntos'
 import { CASAS, ETAPAS_ORDEN, JUEGOS } from './state'
 import type { CasaId, Etapa, Invitado, JuegoId } from './state'
+import type { TurnoTabu } from './tabu'
 
 export const NOMBRE_CASA: Record<CasaId, string> = {
   gryffindor: 'Gryffindor',
@@ -108,6 +109,17 @@ export function puntajeQuidditchPorCasa(
     (acc, casa) => ({
       ...acc,
       [casa]: AROS.reduce((suma, aro) => suma + embocadas[casa][aro] * PUNTOS_POR_ARO[aro], 0),
+    }),
+    {} as Record<CasaId, number>,
+  )
+}
+
+/** Puntaje del Juego 3 por casa: checks y cruces por sus puntos (puede ser negativo). */
+export function puntajeTabuPorCasa(turnos: Record<CasaId, TurnoTabu>): Record<CasaId, number> {
+  return CASAS.reduce<Record<CasaId, number>>(
+    (acc, casa) => ({
+      ...acc,
+      [casa]: turnos[casa].resultados.reduce((suma, resultado) => suma + PUNTOS_TABU[resultado], 0),
     }),
     {} as Record<CasaId, number>,
   )

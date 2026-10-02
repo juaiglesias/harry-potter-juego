@@ -1,0 +1,166 @@
+.tabu__casas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espacio-3);
+  list-style: none;
+  padding: 0;
+}
+
+.tabu__casa {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4) var(--espacio-5);
+  border: 1px solid var(--borde);
+  border-left: 4px solid;
+  border-radius: var(--radio-boton);
+  background: transparent;
+  color: var(--texto);
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-cuerpo);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tabu__casa:hover {
+  background: rgba(232, 182, 90, .07);
+}
+
+.tabu__casa-nombre {
+  font-family: var(--fuente-subtitulo);
+  font-size: var(--tam-bajada);
+}
+
+.tabu__casa-estado {
+  color: var(--texto-suave);
+  font-size: var(--tam-secundario);
+}
+
+.tabu__casa-puntos {
+  margin-left: auto;
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.tabu__previa,
+.tabu__resumen {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-4);
+  margin-top: var(--espacio-5);
+}
+
+.tabu__resumen-cifras {
+  font-size: var(--tam-bajada);
+  font-variant-numeric: lining-nums;
+}
+
+.tabu__acciones-secundarias {
+  display: flex;
+  gap: var(--espacio-3);
+}
+
+.tabu__turno {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-5);
+  margin-top: var(--espacio-4);
+}
+
+.tabu__encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--texto-suave);
+}
+
+.tabu__reloj {
+  color: var(--texto);
+  font-size: var(--tam-h2);
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.tabu__tarjeta {
+  padding: var(--espacio-6) var(--espacio-5);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-panel);
+  text-align: center;
+}
+
+.tabu__palabra {
+  margin: 0 0 var(--espacio-5);
+  font-family: var(--fuente-subtitulo);
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--vela);
+}
+
+.tabu__prohibidas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--espacio-2) var(--espacio-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--tam-bajada);
+}
+
+.tabu__prohibidas li::before {
+  content: '🚫 ';
+}
+
+.tabu__marcas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espacio-6);
+}
+
+.tabu__marca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: var(--espacio-5);
+  border-radius: var(--radio-boton);
+  font-family: var(--fuente-cuerpo);
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tabu__marca span {
+  font-size: var(--tam-secundario);
+}
+
+.tabu__marca--acierto {
+  border: none;
+  background: var(--vela);
+  color: var(--roble);
+  box-shadow: var(--halo);
+}
+
+.tabu__marca--error {
+  border: none;
+  border-left: 2px solid #C2566B;
+  background: var(--vitral);
+  color: var(--texto);
+}
+
+.tabu__marca:active {
+  transform: scale(.98);
+}
+
+.tabu__deshacer {
+  align-self: center;
+  border: none;
+  background: none;
+  color: var(--texto-suave);
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-secundario);
+  text-decoration: underline;
+  cursor: pointer;
+}

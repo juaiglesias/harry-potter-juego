@@ -3,6 +3,7 @@ import { ConfiguracionPage } from './pages/ConfiguracionPage'
 import { JuegoEnCursoPage } from './pages/JuegoEnCursoPage'
 import { PreguntasPage } from './pages/PreguntasPage'
 import { QuidditchPage } from './pages/QuidditchPage'
+import { TabuPage } from './pages/TabuPage'
 import { ResultadosPage } from './pages/ResultadosPage'
 import { SorteoPage } from './pages/SorteoPage'
 import { AppStateProvider } from './state/AppStateContext'
@@ -24,6 +25,8 @@ function ActivePage() {
           return <PreguntasPage />
         case 'quidditch':
           return <QuidditchPage />
+        case 'tabu-hp':
+          return <TabuPage />
         default:
           return <JuegoEnCursoPage />
       }

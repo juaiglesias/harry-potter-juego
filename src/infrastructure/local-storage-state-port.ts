@@ -14,7 +14,13 @@ export const localStorageStatePort: StatePort = {
       // descarta en vez de romper: la app arranca con el estado inicial.
       if (!parsed || typeof parsed !== 'object' || !('partida' in parsed)) return undefined
       const { partida } = parsed
-      if (!partida || typeof partida !== 'object' || !('preguntas' in partida) || !('quidditch' in partida)) {
+      if (
+        !partida ||
+        typeof partida !== 'object' ||
+        !('preguntas' in partida) ||
+        !('quidditch' in partida) ||
+        !('tabu' in partida)
+      ) {
         return undefined
       }
       return parsed as AppState

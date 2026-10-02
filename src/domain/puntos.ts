@@ -19,3 +19,9 @@ export const PUNTOS_POR_ARO: Record<AroId, number> = {
   mediano: 20,
   grande: 10,
 }
+
+/** Puntos del Juego 3 (Tabú HP) por cada check y cada cruz. */
+export const PUNTOS_TABU = {
+  acierto: 10,
+  error: -10,
+}
