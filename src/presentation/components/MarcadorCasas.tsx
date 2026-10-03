@@ -1,45 +1,26 @@
-import { CASAS, NOMBRE_CASA, puntajeTotalPorCasa, rankingCasas } from '../../domain'
+import { CASAS, NOMBRE_CASA, puntajeTotalPorCasa } from '../../domain'
 import { useAppState } from '../state/use-app-state'
 import { COLORES_CASA } from './colores-casa'
 import './MarcadorCasas.css'
 
-interface MarcadorCasasProps {
-  variante?: 'compacta' | 'destacada'
-}
-
-export function MarcadorCasas({ variante = 'compacta' }: MarcadorCasasProps) {
+// Orden fijo de las casas para que no salten de lugar mientras el anfitrión
+// carga puntaje en vivo.
+export function MarcadorCasas() {
   const { state } = useAppState()
-
-  // En "compacta" se mantiene el orden fijo de las casas para que no salten
-  // de lugar mientras el anfitrión carga puntaje en vivo. El ranking
-  // ordenado por puntaje solo tiene sentido en "destacada" (Resultados).
-  const items =
-    variante === 'destacada'
-      ? rankingCasas(state.partida.puntajesPorJuego)
-      : (() => {
-          const totales = puntajeTotalPorCasa(state.partida.puntajesPorJuego)
-          return CASAS.map((casa) => ({ casa, puntaje: totales[casa], ganadora: false }))
-        })()
+  const totales = puntajeTotalPorCasa(state.partida.puntajesPorJuego)
 
   return (
-    <ul className={`marcador-casas marcador-casas--${variante}`}>
-      {items.map(({ casa, puntaje, ganadora }) => {
+    <ul className="marcador-casas">
+      {CASAS.map((casa) => {
         const colores = COLORES_CASA[casa]
-        const clases = [
-          'marcador-casas__item',
-          variante === 'destacada' && ganadora && 'marcador-casas__item--ganadora',
-        ]
-          .filter(Boolean)
-          .join(' ')
-
         return (
           <li
             key={casa}
-            className={clases}
+            className="marcador-casas__item"
             style={{ background: colores.fondo, color: colores.texto }}
           >
             <span className="marcador-casas__nombre">{NOMBRE_CASA[casa]}</span>
-            <span className="marcador-casas__puntaje">{puntaje}</span>
+            <span className="marcador-casas__puntaje">{totales[casa]}</span>
           </li>
         )
       })}

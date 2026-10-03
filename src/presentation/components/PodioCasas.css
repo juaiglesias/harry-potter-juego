@@ -1,0 +1,60 @@
+.podio-casas {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--espacio-1);
+  height: 240px;
+  list-style: none;
+  margin: var(--espacio-6) 0 var(--espacio-5);
+  padding: 0;
+}
+
+.podio-casas__columna {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: var(--espacio-3) 0;
+  border-radius: 2px 2px 0 0;
+  text-align: center;
+}
+
+.podio-casas__columna--ganadora {
+  box-shadow: var(--halo);
+  outline: 1px solid var(--borde-fuerte);
+}
+
+.podio-casas__nombre {
+  font-family: var(--fuente-subtitulo);
+  font-size: var(--tam-micro);
+  overflow-wrap: anywhere;
+}
+
+/* EB Garamond con números lining: IM Fell English usa oldstyle y los números
+   se leen mal. */
+.podio-casas__puntaje {
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-h3);
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+@media (min-width: 761px) {
+  .podio-casas {
+    height: 320px;
+    gap: var(--espacio-4);
+  }
+
+  .podio-casas__columna {
+    padding: var(--espacio-3) var(--espacio-2);
+  }
+
+  .podio-casas__nombre {
+    font-size: var(--tam-bajada);
+  }
+
+  .podio-casas__puntaje {
+    font-size: var(--tam-h2);
+  }
+}

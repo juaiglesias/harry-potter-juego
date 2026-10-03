@@ -16,7 +16,7 @@ export function HuevoDragonPage() {
   return (
     <div className="pantalla">
       <Stepper />
-      <MarcadorCasas variante="compacta" />
+      <MarcadorCasas />
       <Panel>
         <h1>{NOMBRE_JUEGO['huevo-de-dragon']}</h1>
         <p>Tocá cada casa en el momento en que encuentra su huevo.</p>

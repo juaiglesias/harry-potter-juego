@@ -22,7 +22,7 @@ export function QuidditchPage() {
   return (
     <div className="pantalla">
       <Stepper />
-      <MarcadorCasas variante="compacta" />
+      <MarcadorCasas />
       <Panel>
         <h1>{NOMBRE_JUEGO.quidditch}</h1>
         <p>Tocá el aro cada vez que una casa emboca. Con − corregís un toque de más.</p>

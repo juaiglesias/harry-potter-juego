@@ -51,7 +51,7 @@ export function SorteoPage() {
   return (
     <div className="pantalla">
       <Stepper />
-      <MarcadorCasas variante="compacta" />
+      <MarcadorCasas />
       <Panel>
         <h1>Sorteo</h1>
         <p>Cargá el nombre de cada invitado a medida que llega y sorteá su casa.</p>

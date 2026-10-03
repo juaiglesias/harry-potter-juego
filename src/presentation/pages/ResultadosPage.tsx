@@ -1,5 +1,5 @@
-import { MarcadorCasas } from '../components/MarcadorCasas'
 import { Panel } from '../components/Panel'
+import { PodioCasas } from '../components/PodioCasas'
 import { Stepper } from '../components/Stepper'
 
 export function ResultadosPage() {
@@ -8,7 +8,7 @@ export function ResultadosPage() {
       <Stepper />
       <Panel>
         <h1>Resultados</h1>
-        <MarcadorCasas variante="destacada" />
+        <PodioCasas />
       </Panel>
     </div>
   )

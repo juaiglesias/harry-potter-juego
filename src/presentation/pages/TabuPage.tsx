@@ -55,7 +55,7 @@ export function TabuPage() {
   return (
     <div className="pantalla">
       <Stepper />
-      <MarcadorCasas variante="compacta" />
+      <MarcadorCasas />
       <Panel>
         <h1>{NOMBRE_JUEGO['tabu-hp']}</h1>
         {casaEnTurno === null ? (

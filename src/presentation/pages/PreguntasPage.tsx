@@ -25,7 +25,7 @@ export function PreguntasPage() {
   return (
     <div className="pantalla">
       <Stepper />
-      <MarcadorCasas variante="compacta" />
+      <MarcadorCasas />
       <Panel>
         <h1>{NOMBRE_JUEGO['preguntas-y-respuestas']}</h1>
         <p className="preguntas__numero">

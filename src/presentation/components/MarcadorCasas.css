@@ -11,18 +11,10 @@
   display: flex;
   align-items: baseline;
   gap: var(--espacio-2);
-  border-radius: 2px;
-  font-variant-numeric: tabular-nums;
-}
-
-.marcador-casas--compacta .marcador-casas__item {
   padding: var(--espacio-1) var(--espacio-3);
+  border-radius: 2px;
   font-size: var(--tam-micro);
-}
-
-.marcador-casas--destacada .marcador-casas__item {
-  padding: var(--espacio-3) var(--espacio-5);
-  font-size: var(--tam-bajada);
+  font-variant-numeric: tabular-nums;
 }
 
 .marcador-casas__nombre {
@@ -31,9 +23,4 @@
 
 .marcador-casas__puntaje {
   font-weight: 600;
-}
-
-.marcador-casas--destacada .marcador-casas__item--ganadora {
-  box-shadow: var(--halo);
-  outline: 1px solid var(--borde-fuerte);
 }
