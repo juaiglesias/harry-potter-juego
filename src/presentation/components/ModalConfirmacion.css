@@ -1,0 +1,27 @@
+.modal-confirmacion {
+  max-width: min(480px, calc(100vw - 2 * var(--espacio-4)));
+  padding: var(--espacio-5);
+  background: var(--noche);
+  color: var(--texto);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-panel);
+  box-shadow: var(--halo);
+}
+
+.modal-confirmacion::backdrop {
+  background: rgba(13, 21, 38, .78);
+}
+
+.modal-confirmacion__pregunta {
+  margin: 0 0 var(--espacio-5);
+  font-family: var(--fuente-subtitulo);
+  font-size: var(--tam-bajada);
+  line-height: var(--interlineado-bajada);
+}
+
+.modal-confirmacion__acciones {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+}

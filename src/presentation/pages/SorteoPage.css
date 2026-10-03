@@ -1,0 +1,35 @@
+.roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+/* El color de la franja izquierda lo pone la página según la casa. */
+.roster__fila {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-4);
+  background: rgba(13, 21, 38, .45);
+  border: 1px solid var(--borde);
+  border-left: 4px solid;
+  border-radius: var(--radio-panel);
+}
+
+.roster__nombre {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .roster__fila {
+    grid-template-columns: 1fr auto;
+  }
+
+  .roster__nombre {
+    grid-column: 1 / -1;
+  }
+}
