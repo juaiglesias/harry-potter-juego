@@ -15,12 +15,14 @@ export type Etapa =
   | { tipo: 'sorteo' }
   | { tipo: 'juego'; juego: JuegoId }
   | { tipo: 'resultados' }
+  | { tipo: 'premios' }
 
 export const ETAPAS_ORDEN: Etapa[] = [
   { tipo: 'configuracion' },
   { tipo: 'sorteo' },
   ...JUEGOS.map((juego): Etapa => ({ tipo: 'juego', juego })),
   { tipo: 'resultados' },
+  { tipo: 'premios' },
 ]
 
 export interface Invitado {
@@ -51,6 +53,19 @@ export interface ProgresoHuevo {
   orden: CasaId[]
 }
 
+/** Tanda del sorteo de premios: una por casa y el sorteo final entre todos. */
+export type Tanda = CasaId | 'final'
+
+export interface Ganador {
+  tanda: Tanda
+  invitadoId: string
+}
+
+export interface ProgresoPremios {
+  /** Ganadores en el orden en que salieron. */
+  ganadores: Ganador[]
+}
+
 export interface Partida {
   etapaActual: Etapa
   totalParticipantes: number
@@ -61,6 +76,7 @@ export interface Partida {
   quidditch: ProgresoQuidditch
   tabu: ProgresoTabu
   huevo: ProgresoHuevo
+  premios: ProgresoPremios
 }
 
 export interface AppState {
@@ -106,5 +122,6 @@ export const initialState: AppState = {
     quidditch: { embocadas: embocadasIniciales() },
     tabu: { reparto: repartirTarjetas(CASAS), turnos: turnosTabuIniciales(), casaEnTurno: null },
     huevo: { orden: [] },
+    premios: { ganadores: [] },
   },
 }

@@ -2,16 +2,20 @@
 
 ## Purpose
 
-Flujo de la partida: secuencia fija de etapas, navegación entre ellas, marcador de puntaje acumulado y pantalla de resultados con la casa ganadora.
+Flujo de la partida: secuencia fija de etapas, navegación entre ellas, marcador de puntaje acumulado, pantalla de resultados con la casa ganadora y paso al sorteo de premios.
 
 ## Requirements
 
 ### Requirement: Etapas fijas de la partida
-El sistema SHALL definir la partida como una secuencia fija de etapas: Configuración, Sorteo, Juego 1 (Preguntas y respuestas), Juego 2 (Quidditch), Juego 3 (Tabú HP), Juego 4 (Huevo de Dragón), Resultados.
+El sistema SHALL definir la partida como una secuencia fija de etapas: Configuración, Sorteo, Juego 1 (Preguntas y respuestas), Juego 2 (Quidditch), Juego 3 (Tabú HP), Juego 4 (Huevo de Dragón), Resultados, Premios.
 
 #### Scenario: Orden de etapas fijo
 - **WHEN** la partida arranca
 - **THEN** el estado global inicia en la etapa Configuración, y las etapas siguientes le siguen siempre en ese mismo orden
+
+#### Scenario: Avanzar de Resultados a Premios
+- **WHEN** el anfitrión dispara la acción de avanzar durante la etapa Resultados
+- **THEN** la partida pasa a la etapa Premios
 
 ### Requirement: Avance manual entre etapas
 El sistema SHALL permitir al anfitrión avanzar a la etapa siguiente mediante una acción explícita, sin exigir ninguna condición sobre los cupos de casas ni la cantidad de invitados.
@@ -54,9 +58,8 @@ El sistema SHALL mostrar, en la etapa Resultados, un podio con las 4 casas: un r
 - **THEN** todas las casas empatadas en el primer puesto se marcan como ganadoras y sus rectángulos tienen la misma altura
 
 ### Requirement: Stepper de progreso
-El sistema SHALL mostrar en la vista de control un indicador persistente con las 7 etapas de la partida, resaltando cuál está activa.
+El sistema SHALL mostrar en la vista de control un indicador persistente con las 8 etapas de la partida, resaltando cuál está activa.
 
 #### Scenario: Resaltar la etapa activa
 - **WHEN** la partida está en la etapa Juego 2
-- **THEN** el indicador de progreso muestra las 7 etapas y resalta "Juego 2" como la activa
-
+- **THEN** el indicador de progreso muestra las 8 etapas y resalta "Juego 2" como la activa

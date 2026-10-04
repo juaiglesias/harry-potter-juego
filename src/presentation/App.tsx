@@ -3,6 +3,7 @@ import type { JuegoId } from '../domain'
 import { localStorageStatePort } from '../infrastructure/local-storage-state-port'
 import { ConfiguracionPage } from './pages/ConfiguracionPage'
 import { HuevoDragonPage } from './pages/HuevoDragonPage'
+import { PremiosPage } from './pages/PremiosPage'
 import { PreguntasPage } from './pages/PreguntasPage'
 import { QuidditchPage } from './pages/QuidditchPage'
 import { TabuPage } from './pages/TabuPage'
@@ -40,6 +41,8 @@ function ActivePage() {
       return paginaDeJuego(etapaActual.juego)
     case 'resultados':
       return <ResultadosPage />
+    case 'premios':
+      return <PremiosPage />
   }
 }
 

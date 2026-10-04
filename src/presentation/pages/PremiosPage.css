@@ -1,0 +1,100 @@
+.premios__tanda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin: var(--espacio-5) 0 var(--espacio-4);
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-h3);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+  color: var(--vela);
+}
+
+.premios__contador {
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tam-cuerpo);
+  color: var(--texto-suave);
+  font-variant-numeric: lining-nums;
+}
+
+/* Fondo y color de texto los pone la página según la casa del ganador. */
+.premios__ganador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-6) var(--espacio-4);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-panel);
+  box-shadow: var(--halo);
+  text-align: center;
+}
+
+.premios__nombre {
+  font-family: var(--fuente-subtitulo);
+  font-size: var(--tam-h1-mobile);
+  line-height: var(--interlineado-h1);
+  overflow-wrap: anywhere;
+}
+
+.premios__detalle {
+  font-size: var(--tam-secundario);
+}
+
+.premios__vacio {
+  margin: var(--espacio-5) 0;
+  color: var(--texto-suave);
+}
+
+.premios__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+  margin-top: var(--espacio-5);
+}
+
+.premios__acciones .button:disabled {
+  opacity: .4;
+  cursor: default;
+  box-shadow: none;
+}
+
+.premios__titulo {
+  margin: var(--espacio-5) 0 var(--espacio-3);
+  font-size: var(--tam-h3);
+}
+
+.premios__grupo + .premios__grupo {
+  margin-top: var(--espacio-4);
+}
+
+.premios__grupo-titulo {
+  margin-bottom: var(--espacio-2);
+  font-size: var(--tam-secundario);
+  color: var(--texto-suave);
+  font-variant-numeric: lining-nums;
+}
+
+.premios__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* El color de la franja izquierda lo pone la página según la casa. */
+.premios__fila {
+  padding: var(--espacio-2) var(--espacio-4);
+  border-left: 4px solid;
+  background: rgba(13, 21, 38, .4);
+}
+
+@media (min-width: 761px) {
+  .premios__nombre {
+    font-size: var(--tam-h1);
+  }
+}

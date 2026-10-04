@@ -1,9 +1,14 @@
 import type { AppAction } from './actions'
 import { calcularCuposPorCasa, etapaSiguiente, indiceEtapa, puntajeHuevoPorCasa, puntajePreguntasPorCasa, puntajeQuidditchPorCasa, puntajeTabuPorCasa, sortearCasa } from './partida'
 import { PREGUNTAS_JUEGO_1 } from './preguntas'
-import type { AppState, CasaId } from './state'
+import { elegiblesPremio, tandaEnCurso } from './premios'
+import type { AppState, CasaId, Ganador } from './state'
 import { DURACION_TURNO_TABU_SEGUNDOS, estadoTurnoTabu } from './tabu'
 import type { TurnoTabu } from './tabu'
+
+function conGanadores(state: AppState, ganadores: Ganador[]): AppState {
+  return { ...state, partida: { ...state.partida, premios: { ganadores } } }
+}
 
 /** Reemplaza el orden del Juego 4 y reescribe su puntaje desde ese orden. */
 function conOrdenHuevo(state: AppState, orden: CasaId[]): AppState {
@@ -184,6 +189,27 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'huevo/deshacer': {
       if (partida.huevo.orden.length === 0) return state
       return conOrdenHuevo(state, partida.huevo.orden.slice(0, -1))
+    }
+
+    case 'premios/sortear': {
+      const { ganadores } = partida.premios
+      const enCurso = tandaEnCurso(partida.puntajesPorJuego, partida.invitados, ganadores)
+      if (!enCurso) return state
+      const elegibles = elegiblesPremio(enCurso.tanda, partida.invitados, ganadores)
+      const elegido = elegibles[Math.floor(action.azar * elegibles.length)]
+      return conGanadores(state, [...ganadores, { tanda: enCurso.tanda, invitadoId: elegido.id }])
+    }
+
+    case 'premios/volver-a-sortear': {
+      const { ganadores } = partida.premios
+      const ultimo = ganadores.at(-1)
+      if (!ultimo) return state
+      // El último sigue en `ganadores`, así que queda fuera de los elegibles;
+      // al reemplazarlo vuelve al bombo para los sorteos siguientes.
+      const elegibles = elegiblesPremio(ultimo.tanda, partida.invitados, ganadores)
+      if (elegibles.length === 0) return state
+      const elegido = elegibles[Math.floor(action.azar * elegibles.length)]
+      return conGanadores(state, [...ganadores.slice(0, -1), { tanda: ultimo.tanda, invitadoId: elegido.id }])
     }
 
     default:

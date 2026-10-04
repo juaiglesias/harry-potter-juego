@@ -28,6 +28,8 @@ export function nombreEtapa(etapa: Etapa): string {
       return NOMBRE_JUEGO[etapa.juego]
     case 'resultados':
       return 'Resultados'
+    case 'premios':
+      return 'Premios'
   }
 }
 

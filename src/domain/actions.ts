@@ -18,3 +18,6 @@ export type AppAction =
   | { type: 'tabu/deshacer'; casa: CasaId }
   | { type: 'huevo/anotar'; casa: CasaId }
   | { type: 'huevo/deshacer' }
+  // `azar` en [0, 1) lo genera la página, así el reducer queda puro.
+  | { type: 'premios/sortear'; azar: number }
+  | { type: 'premios/volver-a-sortear'; azar: number }

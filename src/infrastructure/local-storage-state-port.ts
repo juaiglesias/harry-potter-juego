@@ -24,6 +24,12 @@ export const localStorageStatePort: StatePort = {
       ) {
         return undefined
       }
+      // Una partida guardada antes de existir los premios se completa en vez
+      // de descartarse, para no perder invitados y puntajes ya cargados.
+      if (!('premios' in partida)) {
+        const estado = parsed as AppState
+        return { ...estado, partida: { ...estado.partida, premios: { ganadores: [] } } }
+      }
       return parsed as AppState
     } catch {
       return undefined
