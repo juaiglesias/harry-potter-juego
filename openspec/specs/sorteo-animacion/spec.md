@@ -20,12 +20,16 @@ El sistema SHALL cerrar automáticamente la animación cuando el video termina d
 - **WHEN** el video de la casa termina de reproducirse
 - **THEN** la animación se cierra automáticamente y el anfitrión puede cargar el próximo invitado
 
-### Requirement: Animación sin control de salto
-El sistema SHALL reproducir el video de principio a fin sin ofrecer ninguna acción para saltearlo o cancelarlo.
+### Requirement: Salir del video con Escape
+El sistema SHALL permitir cerrar la animación antes de que termine el video presionando Escape, sin ofrecer otro control para saltearla. Cerrarla antes no cambia ni descarta la casa asignada al invitado.
 
-#### Scenario: No hay forma de saltear
+#### Scenario: Escape durante el video
+- **WHEN** el anfitrión presiona Escape mientras se reproduce el video de la casa
+- **THEN** la animación se cierra, el invitado queda guardado con la casa sorteada y el anfitrión puede cargar el próximo invitado
+
+#### Scenario: Sin otros controles de salto
 - **WHEN** el video de la casa se está reproduciendo
-- **THEN** la interfaz no muestra ningún botón ni acepta ninguna acción para adelantar o cerrar el video antes de que termine
+- **THEN** la interfaz no muestra ningún botón para adelantar o cerrar el video
 
 ### Requirement: Continuidad ante falla del video
 El sistema SHALL cerrar automáticamente la animación si el video no puede reproducirse, para no dejar la partida bloqueada.
