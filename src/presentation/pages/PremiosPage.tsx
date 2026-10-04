@@ -46,9 +46,14 @@ export function PremiosPage() {
         )}
 
         {invitadoUltimo && tandaUltimo ? (
+          // El premio final es de toda la partida: sin color de casa.
           <div
-            className="premios__ganador"
-            style={{ background: COLORES_CASA[invitadoUltimo.casa].fondo, color: COLORES_CASA[invitadoUltimo.casa].texto }}
+            className={tandaUltimo.tanda === 'final' ? 'premios__ganador premios__ganador--final' : 'premios__ganador'}
+            style={
+              tandaUltimo.tanda === 'final'
+                ? undefined
+                : { background: COLORES_CASA[invitadoUltimo.casa].fondo, color: COLORES_CASA[invitadoUltimo.casa].texto }
+            }
           >
             <span className="premios__nombre">{invitadoUltimo.nombre}</span>
             <span className="premios__detalle">{nombreTanda(tandaUltimo)}</span>
@@ -92,8 +97,8 @@ export function PremiosPage() {
                     {ganadoresTanda.map((invitado) => (
                       <li
                         key={invitado.id}
-                        className="premios__fila"
-                        style={{ borderLeftColor: COLORES_CASA[invitado.casa].fondo }}
+                        className={tandaPremios.tanda === 'final' ? 'premios__fila premios__fila--final' : 'premios__fila'}
+                        style={tandaPremios.tanda === 'final' ? undefined : { borderLeftColor: COLORES_CASA[invitado.casa].fondo }}
                       >
                         {invitado.nombre}
                       </li>

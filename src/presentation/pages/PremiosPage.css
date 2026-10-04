@@ -32,6 +32,11 @@
   text-align: center;
 }
 
+.premios__ganador--final {
+  background: rgba(13, 21, 38, .6);
+  color: var(--vela);
+}
+
 .premios__nombre {
   font-family: var(--fuente-subtitulo);
   font-size: var(--tam-h1-mobile);
@@ -91,6 +96,10 @@
   padding: var(--espacio-2) var(--espacio-4);
   border-left: 4px solid;
   background: rgba(13, 21, 38, .4);
+}
+
+.premios__fila--final {
+  border-left-color: var(--vela);
 }
 
 @media (min-width: 761px) {
